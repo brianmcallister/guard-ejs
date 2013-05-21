@@ -52,7 +52,9 @@ module Guard
         hash[@options[:namespace]][path] = compiled
       end
       
-      puts hash.inspect
+      File.open(@options[:output], 'w') do |file|
+        file.write hash.inspect
+      end
     end
 
     def run_on_removals(paths)
