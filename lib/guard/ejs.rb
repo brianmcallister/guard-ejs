@@ -15,7 +15,7 @@ module Guard
     end
     
     def start
-      UI.info 'Guard::EJS is now watching at somewhere'
+      UI.info 'Guard::EJS is now watching for changes.'
       
       # Run all if the option is true.
       run_all() if @options[:run_on_start]
@@ -33,7 +33,7 @@ module Guard
     
     # Run when the guardfile changes.
     def run_on_changes(paths)
-      puts 'guardfile changed'
+      run_on_modifications paths
     end
     
     def run_on_additions(paths)
@@ -44,7 +44,6 @@ module Guard
     def run_on_modifications(paths)
       hash = {}
       
-      puts "paths: #{paths.inspect}"
       paths.each do |path|
         file = File.read path
         compiled = ::EJS.compile file
@@ -67,7 +66,7 @@ module Guard
     end
 
     def run_on_removals(paths)
-      puts 'run on removals'
+      
     end
   end
 end
