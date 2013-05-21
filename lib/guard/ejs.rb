@@ -41,11 +41,15 @@ module Guard
     
     # Compile each template at the passed in paths.
     def run_on_modifications(paths)
+      hash = {}
+      
       paths.each do |path|
         file = File.read path
         compiled = ::EJS.compile file
-        # puts 'compiled: ' + compiled
+        hash[path] = compiled
       end
+      
+      puts hash.inspect
     end
 
     def run_on_removals(paths)
