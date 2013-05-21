@@ -1,5 +1,5 @@
 module Guard
-  module Ejs
-    VERSION = "0.0.1"
+  module EJSVersion
+    VERSION = '0.0.1'
   end
 end
