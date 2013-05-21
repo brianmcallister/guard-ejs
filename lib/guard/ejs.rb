@@ -20,22 +20,26 @@ module Guard
       run_all() if @options[:run_on_start]
     end
     
-    def reload
-      puts 'reloaded'
-    end
-    
+    # Compile all templates.
     def run_all
-      puts 'run all'
+      # Get all files.
+      files = Dir.glob("#{@options[:input]}/**/*").select do |path|
+        not File.directory? path
+      end
+      
+      run_on_modifications files
     end
     
+    # Run when the guardfile changes.
     def run_on_changes(paths)
-      puts 'run on changes'
+      puts 'guardfile changed'
     end
     
     def run_on_additions(paths)
-      puts 'run on additions'
+      run_on_modifications paths
     end
-
+    
+    # Compile each template at the passed in paths.
     def run_on_modifications(paths)
       paths.each do |path|
         file = File.read path
