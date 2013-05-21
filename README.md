@@ -1,9 +1,10 @@
 # Guard::EJS
 
-TODO: Write a gem description
-
 My first gem, and one of my first Ruby projects, so I'll take any help I can get.
 Still a work in progress, and I'm using this for a side project that I'm working on right now.
+
+TODO: Write the compiled templates file in a smarter way that doesn't overwrite
+the entire thing every time you make a change.
 
 
 ## Installation

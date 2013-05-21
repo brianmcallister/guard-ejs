@@ -23,26 +23,26 @@ module Guard
     
     # Compile all templates.
     def run_all
-      # Get all files.
-      files = Dir.glob("#{@options[:input]}/**/*").select do |path|
-        not File.directory? path
-      end
-      
-      run_on_modifications files
+      run_on_modifications()
     end
     
     # Run when the guardfile changes.
     def run_on_changes(paths)
-      run_on_modifications paths
+      run_all()
     end
     
     def run_on_additions(paths)
-      run_on_modifications paths
+      run_all()
     end
     
     # Compile each template at the passed in paths.
-    def run_on_modifications(paths)
+    def run_on_modifications(paths = [])
       hash = {}
+      
+      # Get all files.
+      paths = Dir.glob("#{@options[:input]}/**/*").select do |path|
+        not File.directory? path
+      end
       
       paths.each do |path|
         file = File.read path
@@ -66,7 +66,8 @@ module Guard
     end
 
     def run_on_removals(paths)
-      
+      UI.info "Recompiling templates without #{paths}"
+      run_all()
     end
   end
 end
