@@ -2,6 +2,10 @@
 
 TODO: Write a gem description
 
+My first gem, and one of my first Ruby projects, so I'll take any help I can get.
+Still a work in progress, and I'm using this for a side project that I'm working on right now.
+
+
 ## Installation
 
 Add this line to your application's Gemfile:
