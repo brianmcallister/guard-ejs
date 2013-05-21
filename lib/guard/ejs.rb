@@ -8,6 +8,7 @@ module Guard
       super
       @options = {
         run_on_start: true,
+        namespace: 'JST',
         input: 'public/templates',
         output: 'public/templates/compiled.js'
       }.update(options)
@@ -41,12 +42,14 @@ module Guard
     
     # Compile each template at the passed in paths.
     def run_on_modifications(paths)
-      hash = {}
+      hash = {
+        @options[:namespace] => {}
+      }
       
       paths.each do |path|
         file = File.read path
         compiled = ::EJS.compile file
-        hash[path] = compiled
+        hash[@options[:namespace]][path] = compiled
       end
       
       puts hash.inspect
