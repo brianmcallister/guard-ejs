@@ -1,4 +1,4 @@
-# Guard::Ejs
+# Guard::EJS
 
 TODO: Write a gem description
 

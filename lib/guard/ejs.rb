@@ -6,14 +6,18 @@ module Guard
   class EJS < Guard
     def initialize(watchers = [], options = {})
       super
+      @options = {
+        run_on_start: true,
+        input: 'public/templates',
+        output: 'public/templates/compiled.js'
+      }.update(options)
     end
     
     def start
-      puts 'started'
-    end
-    
-    def stop
-      puts 'stopped'
+      UI.info 'Guard::EJS is now watching at somewhere'
+      
+      # Run all if the option is true.
+      run_all() if @options[:run_on_start]
     end
     
     def reload
@@ -33,7 +37,11 @@ module Guard
     end
 
     def run_on_modifications(paths)
-      puts 'run on modifications'
+      paths.each do |path|
+        file = File.read path
+        compiled = ::EJS.compile file
+        # puts 'compiled: ' + compiled
+      end
     end
 
     def run_on_removals(paths)
