@@ -13,6 +13,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'will be github'
   
   s.add_dependency 'guard', '>= 1.8.0'
+  s.add_dependency 'ejs', '>= 1.1.1'
   
   spec.add_development_dependency 'bundler'
   

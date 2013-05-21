@@ -1,5 +1,6 @@
 require 'guard'
 require 'guard/guard'
+require 'ejs'
 
 module Guard
   class EJS < Guard
