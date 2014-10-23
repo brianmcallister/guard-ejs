@@ -1,17 +1,26 @@
 require 'guard'
 require 'guard/guard'
+require 'guard/watcher'
 require 'ejs'
 
 module Guard
   class EJS < Guard
+    DEFAULT_OPTIONS = {
+      run_on_start: true,
+      namespace: 'app',
+      input: 'public/templates',
+      output: 'public/js/templates.js'      
+    }
+    
     def initialize(watchers = [], options = {})
-      super
-      @options = {
-        run_on_start: true,
-        namespace: 'app',
-        input: 'public/templates',
-        output: 'public/compiled/compiled.js'
-      }.update(options)
+      defaults = DEFAULT_OPTIONS.clone
+      
+      if options[:input]
+        defaults.merge!(output: options[:input])
+        watchers << ::Guard::Watcher.new(%r{^#{options[:input]}/.+$})
+      end
+      
+      super(watchers, defaults.merge(options))
     end
     
     def start
@@ -48,6 +57,8 @@ module Guard
         file = File.read path
         compiled = ::EJS.compile file
         hash[path] = compiled
+        
+        UI.info "[Guard::EJS] Compiled #{path}."
       end
       
       # Just overwrite the whole thing for now.
